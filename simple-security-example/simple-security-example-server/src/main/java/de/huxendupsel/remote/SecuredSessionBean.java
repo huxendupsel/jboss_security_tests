@@ -5,19 +5,23 @@ import javax.annotation.security.RunAs;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import org.jboss.ejb3.annotation.SecurityDomain;
 import org.jboss.logging.Logger;
 
 import de.huxendupsel.local.SecuredSFSBServiceLocal;
 import de.huxendupsel.local.SecuredSSBServiceLocal;
 import de.huxendupsel.local.SecuredServiceBeanLocal;
+import de.huxendupsel.local.SecuredSessionBeanLocal;
 
 /**
  * Session Bean implementation class SecuredSessionBean
  */
 @Stateless
-@RunAs("testuser")
+@RunAs("internal")
 @RolesAllowed({ "internal" })
-public class SecuredSessionBean implements SecuredSessionBeanRemote {
+@SecurityDomain(value = "internal")
+public class SecuredSessionBean implements SecuredSessionBeanRemote,
+		SecuredSessionBeanLocal {
 
 	private final static Logger LOGGER = Logger
 			.getLogger(SecuredSessionBean.class);
